@@ -14,7 +14,7 @@ export class Instruction {
     }
 
     printInstruction() {
-        console.log(`Welcome! The object of this game is the guess the order and color of the 4 balls placed by the computer. You have 10 tries before the game ends, if you can guess correctly before then you win!
+        console.log(`Welcome! The object of this game is to guess the order and color of the 4 balls placed by the computer or yourself. You have 10 tries before the game ends, if you can guess correctly before then you win!
         
         Color choices: ${this.blue('b ') + this.white('w ') + this.magenta('m ') + this.green('g ') + this.red('r ') + this.yellow('y')}
         Example turn input: ygrb
@@ -25,6 +25,8 @@ export class Instruction {
         (Hints are displayed in random order)
         type !q to give up and see solution`)
     }
+
+    
 
     
 }

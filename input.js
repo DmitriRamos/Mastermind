@@ -13,7 +13,17 @@ export class Input {
         this.yellow = chalk.yellow
     }
 
-    getInput() {
+    createCode() {
+        const codeString = prompt('What is your code?: ')
+        return codeString.split('')
+    }
+
+    pickGame() {
+        const gameOption = prompt('Type "g" to guess code, or "m" to be the code maker: ')
+        return gameOption
+    }
+
+    getGuess() {
         const guessString = prompt('What is your guess?: ')
             
         return guessString.split('')
@@ -48,3 +58,6 @@ export class Input {
     return guessArr.join(' ')
 }
 }
+
+
+

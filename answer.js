@@ -15,18 +15,17 @@ export class Answer {
     }
 
     generateAnswer() {
-        const options = ['b', 'w', 'm', 'g', 'r', 'y']
-        const newCode = [...options]
-
-        for (let i = 0 ; i <= 6; i++) {
-            
-            const randomPosition = Math.floor((newCode.length - i) * this.randomNum);
-            const randomItem = newCode.splice(randomPosition, 1)
-            newCode.push(...randomItem)
-            
+        let options = ['b', 'w', 'm', 'g', 'r', 'y']
+        let len = options.length,
+            currentIndex;
+        for (currentIndex = len - 1; currentIndex > 0; currentIndex--) {
+            let randIndex = Math.floor(Math.random() * (currentIndex + 1) );
+            var temp = options[currentIndex];
+            options[currentIndex] = options[randIndex];
+            options[randIndex] = temp;
         }
-        const finalCode = newCode.slice(0,4)
-        return finalCode
+        options.splice(4,2)
+        return options
     }
 
     printAnswer(answerArr) {
@@ -57,7 +56,7 @@ export class Answer {
     }
     
     getCode() {
-        return this.printAnswer(this.generateAnswer())
+        return 
     }
 }
 
