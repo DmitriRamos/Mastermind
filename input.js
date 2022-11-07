@@ -54,9 +54,9 @@ export class Input {
                     guessArr.push(this.yellow(this.ball))
                     break;
             }
+        }
+        return guessArr.join(' ')
     }
-    return guessArr.join(' ')
-}
 }
 
 

@@ -10,8 +10,6 @@ export class Answer {
         this.red = chalk.red
         this.yellow = chalk.yellow
         this.randomNum = Math.random()
-        
-    
     }
 
     generateAnswer() {
@@ -31,27 +29,28 @@ export class Answer {
     printAnswer(answerArr) {
         let answerToPrint = []
         for (let i = 0; i <= 5; i++) {
-        switch (answerArr[i]) {
-            case 'b':
-                answerToPrint.push(this.blue(this.ball))
-                break
-            case 'w':
-                answerToPrint.push(this.white(this.ball))
-                break;
-            case 'm':
-                answerToPrint.push(this.magenta(this.ball))
-                break;
-            case 'g':
-                answerToPrint.push(this.green(this.ball))
-                break;
-            case 'r':
-                answerToPrint.push(this.red(this.ball))
-                break;
-            case 'y':
-                answerToPrint.push(this.yellow(this.ball))
-                break;
+            switch (answerArr[i]) {
+                case 'b':
+                    answerToPrint.push(this.blue(this.ball))
+                    break
+                case 'w':
+                    answerToPrint.push(this.white(this.ball))
+                    break;
+                case 'm':
+                    answerToPrint.push(this.magenta(this.ball))
+                    break;
+                case 'g':
+                    answerToPrint.push(this.green(this.ball))
+                    break;
+                case 'r':
+                    answerToPrint.push(this.red(this.ball))
+                    break;
+                case 'y':
+                    answerToPrint.push(this.yellow(this.ball))
+                    break;
+            }
         }
-    }
+        
     return answerToPrint.join(' ')
     }
     
