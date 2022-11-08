@@ -65,7 +65,7 @@ export class Game {
 
 
 
-    start(code) {
+    start() {
         instructions.printInstruction()
         const gameType = input.pickGame()
         if (gameType === 'g' ) {

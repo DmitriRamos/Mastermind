@@ -12,11 +12,13 @@ export class AI {
         this.guesses = 0
         this.colorArr = ['b', 'w', 'm', 'g', 'r', 'y']
         this.scoreArr = ['-', 'o', '●']
-        this.possibleScores = this.getPermutations(this.scoreArr, 4)
-        this.possibleAnswers = []
-        this.collectAnswers = this.possibleAnswers.push(this.getPermutations(this.colorArr, 4))
+     
         
     }
+
+    isPartOfArray(hints, arr) {
+        return arr.every(i => hints.includes(i));
+      }
 
     shuffleGuess(array) {
         
@@ -45,29 +47,46 @@ export class AI {
             return options
     }
 
-    getPermutations(list, maxLen) {
-        var perm = list.map(function(val) {
-            return [val];
-        });
-        var generate = function(perm, maxLen, currLen) {
-            if (currLen === maxLen) {
-                return perm;
-            }
-      
-            for (var i = 0, len = perm.length; i < len; i++) {
-                var currPerm = perm.shift();
-                for (var k = 0; k < list.length; k++) {
-                    perm.push(currPerm.concat(list[k]));
-                }
-            }
-           
-            return generate(perm, maxLen, currLen + 1);
-        };
-        
-        return generate(perm, maxLen, 1)
-    };
 
-    
+    ifColorRight(array, hintArr) {
+        let swapped = 0
+        let shuffle = 0
+
+        if (this.isPartOfArray(['o', 'o', 'o', 'o'], hintArr) === true && shuffle === 2) {
+            this.shuffleGuess(array)
+        }
+        if (this.isPartOfArray(['o', 'o', 'o', 'o'], hintArr) === true) {
+            let temp = array[0]
+            let temptwo = array[2]
+            array[0] = array[1]
+            array[1] = temp
+            array[2] = array[3]
+            array[3] = temptwo
+            shuffle = 1
+        }
+        if (this.isPartOfArray(['o', 'o', 'o', 'o'], hintArr) === true && shuffle === 1) {
+            let temp = array[0]
+            array[0] = array[3]
+            array[3] = temp
+            shuffle = 2
+        }
+
+        if (this.isPartOfArray(['o', 'o', '●', '●'], hintArr) === true && swapped === 1) {
+            let temp = array[1]
+            array[1] = array[2]
+            array[2] = temp
+        }
+        if (this.isPartOfArray(['o', 'o', '●', '●'], hintArr ) === true ) {
+            let temp = array[0]
+            let temptwo = array[1]
+            array[0] = array[3]
+            array[3] = temp
+            array[1] = array[2]
+            array[2] = temptwo
+            swapped = 1
+        }
+        return array
+    }
             
     
     getNewGuess() {
@@ -81,9 +100,10 @@ export class AI {
         let newGuess = []
         let computerInput = [] 
         let newGuessArr = []
-        for (let r = 1; r <= 20; r++) {
+        let swapped = false
+        for (let r = 1; r <= 10; r++) {
             
-            console.log(`Round ${r} of 20`)
+            console.log(`Round ${r} of 10`)
             
        
 
@@ -95,7 +115,7 @@ export class AI {
             console.log(`Computer won the game in ${r} rounds, the code was ${gameAnswer} and the guess was ${input.playerGuess(computerInput)}`)
             break
             }
-            if (r === 20) {
+            if (r === 10) {
             console.log(`Game over the code was ${gameAnswer}`)
             break
             } 
@@ -118,7 +138,7 @@ export class AI {
                 
             }    
             
-            if (hintArr.includes('-') === true) {
+            if (this.isPartOfArray(hintArr, ['-']) === true) {
                 computerInput = this.getGuess()
                 console.log(`Computers guess: ${input.playerGuess(computerInput)}            hints from last round: ${hintArr.join(' ')}`)
                 hintArr = []
@@ -126,11 +146,19 @@ export class AI {
 
             
             
-            else {
+            else if (this.isPartOfArray(hintArr, ['-']) === false) {
                 computerInput = this.shuffleGuess(computerInput)
                 console.log(`Computers guess: ${input.playerGuess(computerInput)}            hints from last round: ${hintArr.join(' ')}`)
                 hintArr = []
+                swapped = true
             }
+
+            else if (this.isPartOfArray(['-'], hintArr) === false && swapped === true) {
+                computerInput = this.ifColorRight(computerInput, hintArr)
+                console.log(`Computers guess: ${input.playerGuess(computerInput)}            hints from last round: ${hintArr.join(' ')}`)
+                hintArr = []
+            }
+        
             
             prompt('Type anything to continue to next round: ')
         }
